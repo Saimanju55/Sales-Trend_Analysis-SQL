@@ -1,0 +1,23 @@
+-- Monthly Revenue & Order Volume
+SELECT 
+    YEAR(o.order_date) AS year,
+    MONTH(o.order_date) AS month,
+    SUM(d.amount) AS monthly_revenue,
+    COUNT(DISTINCT o.order_id) AS order_volume
+FROM orders o
+JOIN details d 
+ON o.order_id = d.order_id
+GROUP BY YEAR(o.order_date), MONTH(o.order_date)
+ORDER BY year, month;
+
+-- Top 3 Months by Sales
+SELECT 
+    YEAR(o.order_date) AS year,
+    MONTH(o.order_date) AS month,
+    SUM(d.amount) AS total_revenue
+FROM orders o
+JOIN details d 
+ON o.order_id = d.order_id
+GROUP BY YEAR(o.order_date), MONTH(o.order_date)
+ORDER BY total_revenue DESC
+LIMIT 3;
